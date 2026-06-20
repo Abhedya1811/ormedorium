@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+/* Only global base styles */
+@layer base {
+  * {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  body {
+    margin: 0;
+    overflow-x: hidden;
+  }
+}
