@@ -4,9 +4,9 @@ import logo from '../assets/logo.jpeg';
 import { useNavigate } from 'react-router-dom';
 
 // Import your product images
-import hero1 from '../assets/hero4.jpeg';
-import hero2 from '../assets/hero4.jpeg';
-import hero3 from '../assets/hero4.jpeg';
+import hero1 from '../assets/hero1.jpeg';
+import hero2 from '../assets/hero2.jpeg';
+import hero3 from '../assets/hero3.jpeg';
 import hero4 from '../assets/hero4.jpeg';
 import product1 from '../assets/photo1.jpeg';
 import product2 from '../assets/photo2.jpeg';
@@ -28,7 +28,6 @@ const Ormedorium = () => {
   const [theme, setTheme] = useState(getInitialTheme);
   const [activeSlide, setActiveSlide] = useState(0);
   const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const sliderRef = useRef(null);
   const navigate = useNavigate();
 
@@ -55,17 +54,6 @@ const Ormedorium = () => {
     }, 30000);
     return () => clearInterval(interval);
   }, [theme]);
-
-  // Close mobile menu on resize
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setMobileMenuOpen(false);
-      }
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   // Slider images
   const slides = [
@@ -98,7 +86,6 @@ const Ormedorium = () => {
   const scrollToSection = (ref) => {
     if (ref && ref.current) {
       ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setMobileMenuOpen(false);
     }
   };
 
@@ -237,13 +224,19 @@ const Ormedorium = () => {
               </div>
             </div>
             
-            {/* Mobile Menu Button */}
+            {/* Mobile Cart Button - Navigates to Products Page */}
             <button 
-              className="mobile-menu-btn"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle menu"
+              className="mobile-cart-btn"
+              onClick={() => navigate('/products')}
+              aria-label="Go to shop"
             >
-              {mobileMenuOpen ? '✕' : '☰'}
+              <span className="cart-icon-svg">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="9" cy="21" r="1"/>
+                  <circle cx="20" cy="21" r="1"/>
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                </svg>
+              </span>
             </button>
             
             <div className="header-right">
@@ -251,26 +244,6 @@ const Ormedorium = () => {
               <span className="search-icon">🔍</span>
             </div>
           </div>
-        </div>
-        
-        {/* Mobile Menu Dropdown */}
-        <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
-          {navLinks.map((link, index) => (
-            <button
-              key={index}
-              className={`mobile-menu-link ${link.name === 'HOME' ? 'active' : ''}`}
-              onClick={() => {
-                if (link.ref) {
-                  scrollToSection(link.ref);
-                } else if (link.name === 'HOME') {
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                  setMobileMenuOpen(false);
-                }
-              }}
-            >
-              {link.name}
-            </button>
-          ))}
         </div>
       </div>
 
@@ -569,9 +542,6 @@ const Ormedorium = () => {
           </div>
         </div>
       </div>
-
-      {/* Features Strip - Desktop Only */}
-     
 
       {/* OUR COLLECTION */}
       <div ref={collectionRef} className="collection-section">

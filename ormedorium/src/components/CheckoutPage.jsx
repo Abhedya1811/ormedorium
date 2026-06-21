@@ -99,22 +99,6 @@ const CheckoutPage = () => {
     }
   };
 
-  // Test connection function
-  const testConnection = async () => {
-    try {
-      console.log('Testing connection...');
-      const response = await fetch(GOOGLE_SCRIPT_URL, {
-        method: 'GET',
-        mode: 'no-cors',
-      });
-      console.log('Connection test sent (no-cors mode)');
-      alert('✅ Connection request sent! Check your Google Sheet for new orders.');
-    } catch (error) {
-      console.error('Connection test failed:', error);
-      alert('❌ Connection failed: ' + error.message);
-    }
-  };
-
   // Success page
   if (submitStatus === 'success') {
     return (
@@ -172,6 +156,14 @@ const CheckoutPage = () => {
       </header>
 
       <div className="checkout-container">
+        {/* Disclaimer Banner */}
+        <div className="checkout-disclaimer">
+          <span className="disclaimer-icon">📋</span>
+          <p className="disclaimer-text">
+            <strong>Please Note:</strong> This is an order request. Our team will review and approve your order. You will be contacted for payment and confirmation.
+          </p>
+        </div>
+
         <div className="checkout-grid">
           <div className="checkout-summary">
             <h2 className="checkout-summary-title">Order Summary</h2>
@@ -206,24 +198,6 @@ const CheckoutPage = () => {
 
           <div className="checkout-form">
             <h2 className="checkout-form-title">Shipping Information</h2>
-            
-            {/* Test Connection Button */}
-            <button
-              onClick={testConnection}
-              style={{
-                padding: '8px 16px',
-                background: '#fbbf24',
-                color: '#0a0808',
-                border: 'none',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                fontWeight: 'bold',
-                marginBottom: '15px',
-                fontSize: '0.85rem'
-              }}
-            >
-              Test Connection
-            </button>
             
             {submitStatus === 'error' && (
               <div className="checkout-error">
@@ -325,6 +299,11 @@ const CheckoutPage = () => {
               >
                 {isSubmitting ? 'Submitting...' : `Order Request • $${totalPrice.toFixed(2)}`}
               </button>
+              
+              {/* Disclaimer below button for mobile */}
+              <p className="form-disclaimer">
+                📋 By placing this order, you are submitting a request. Our team will contact you for confirmation and payment.
+              </p>
             </form>
           </div>
         </div>
