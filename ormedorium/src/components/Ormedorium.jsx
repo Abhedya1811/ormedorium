@@ -691,6 +691,8 @@ const Ormedorium = () => {
               </ul>
             </div>
             {/* LOLOLOL */}
+
+            {/* LMLMLMLM */}
             <div>
               <h4 className="footer-heading">HELP</h4>
               <ul className="footer-list">
